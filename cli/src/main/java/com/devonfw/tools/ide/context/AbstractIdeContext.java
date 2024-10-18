@@ -889,14 +889,9 @@ public abstract class AbstractIdeContext implements IdeContext {
       String keyword = current.get();
       Commandlet firstCandidate = this.commandletManager.getCommandletByFirstKeyword(keyword);
       boolean matches = false;
-      if (firstCandidate != null) {
-        matches = completeCommandlet(arguments, firstCandidate, collector);
-      } else if (current.isCombinedShortOption()) {
-        collector.add(keyword, null, null, null);
-      }
       if (!matches) {
         for (Commandlet cmd : this.commandletManager.getCommandlets()) {
-          if (cmd != firstCandidate) {
+          if (cmd != null) {
             completeCommandlet(arguments, cmd, collector);
           }
         }
